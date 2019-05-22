@@ -1,0 +1,45 @@
+package heap;
+
+public class HeapSort {
+	private void buildHeap(int[] a,int n){
+		for(int i=n/2;i>=1;i--){
+			heap(a,n,i);
+		}
+		
+	}
+	public void heap(int[] a,int n,int i){
+		while(true){
+			int max=i;
+			if(i*2<=n&&a[i]<a[i*2]){
+				max=i*2;
+			}
+			if(i*2+1<=n&&a[max]<a[i*2+1]){
+				max=i*2+1;
+			}
+			if(max==i) break;
+			int temp=a[i];
+			a[i]=a[max];
+			a[max]=temp;
+			i=max;
+		}
+	}
+	public void sort(int[] a,int n){
+		buildHeap(a,n);
+		int k=n;
+		while(k>1){
+			int temp=a[1];
+			a[1]=a[k];
+			a[k]=temp;
+			heap(a,k,1);
+		}
+		
+		
+//		for(int j=n;j>1;--j){
+//			int temp=a[1];
+//			a[1]=a[j];
+//			a[j]=temp;
+//			heap(a,j,1);
+//		}
+	}
+
+}
