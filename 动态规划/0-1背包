@@ -1,0 +1,40 @@
+package 动态规划;
+
+public class zero_one背包_动态 {
+	public int w=9;                  //背包容纳的重量
+	public int n=5;                  //物品个数
+	public int[] weight={2,2,3,4,6}; //物品重量
+	public int solution(int n ,int[] weight,int w){
+		boolean states[][]=new boolean[n][w+1]; //记录每一层可以达到的不同状态
+		//第一行的状态特殊处理，可以利用哨兵优化
+		states[0][0]=true;
+		if(weight[0]<=w){
+			states[0][weight[0]]=true;
+		}
+		//动态规划的转移过程
+		for(int i=1;i<n;i++){
+			//基于上一层的状态来推到下一层
+			//重复状态states[][]合并，只记录不同状态
+			for(int j=0;j<=w;j++){//第i个物品不放入背包
+				if(states[i-1][j]){
+					states[i][j]=true;
+				}
+			}
+			for(int j=0;j<=w-weight[i];j++){//第i个物品放入背包
+				if(states[i-1][j]){
+					states[i][j+weight[i]]=true;
+				}
+				
+			}
+		}
+		//输出结果
+		for(int i=w;i>=0;i--){
+			if(states[n-1][i]){
+				return i;
+			}
+		}
+		return 0;
+		
+	}
+
+}
